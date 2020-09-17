@@ -6,3 +6,8 @@ allow(_actor, "view", post: social::Post) if
 allow(actor: social::User, "view", post: social::Post) if
     post.access_level = social::Post.ACCESS_PRIVATE and
     post.created_by = actor;
+
+# allow(actor: social::User, "view", post: social::Post) if
+#     post.contents.find(actor.tag) >= 0;
+
+# allow(actor: social::User { username: "admin" }, "view", post: social::Post);

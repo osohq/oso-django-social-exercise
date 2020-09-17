@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{% block title %}oso-social{% endblock %}</title>
-    </head>
-    <body>
-        {% if user.is_authenticated %}
-        <p>Welcome <em>@{{ user.username }}.</em></p>
-        <a href={% url 'logout' %}>Logout</a>
-        {% endif %}
-        <a href={% url 'login' %}>Login</a>
 
-        {% block contents %}
-        {% endblock %}
-    </body>
+<head>
+    <title>{% block title %}oso-social{% endblock %}</title>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <p>Welcome <em>@{{ user.username }}.</em></p>
+    <a href={% url 'logout' %}>Logout</a>
+    {% endif %}
+    <a href={% url 'login' %}>Login</a>
+
+    {% block contents %}
+    {% endblock %}
+
+    <h3>
+        <a href="https://www.osohq.com/post/django-access-control">Blog post on how we made this</a>
+    </h3>
+</body>
+
 </html>
