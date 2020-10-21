@@ -14,6 +14,8 @@ def list_posts(request):
     posts = Post.objects.all().order_by("-created_at")
 
     # STEP 1: Add check that user is an admin before they can see a post.
+    if not request.user.is_staff:
+        posts = []
 
     return render(request, "social/list.html", {"posts": posts})
 
