@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import Group
 
-from django.contrib.auth.models import Group
+from django_oso.auth import authorize
 
 from .models import Post
 from .forms import PostForm
@@ -19,7 +19,9 @@ def list_posts(request):
     groups = Group.objects.all()
 
     # STEP 1: Add check that user is an admin before they can see a post.
-    if not request.user.is_staff:
+    try:
+        authorize(request, action="list", resource="Post")
+    except PermissionDenied:
         posts = []
 
     return render(request, "social/list.html", {"posts": posts, "groups": groups})
