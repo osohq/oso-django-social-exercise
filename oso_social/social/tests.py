@@ -4,19 +4,19 @@ from .models import Post, User
 
 
 class Step0(TestCase):
-    fixtures = ['social.yaml']
+    fixtures = ['social-oso.yaml']
 
     def test_get_all_posts(self):
         """Test that no authorization is applied, and all posts are returned."""
         response = self.client.get(reverse("index"))
         self.assertQuerysetEqual(
             response.context["posts"],
-            [4, 3, 2, 1],
+            [8, 7, 6, 5, 4, 3, 2, 1],
             transform=lambda p: p.id
         )
 
 class Step1(TestCase):
-    fixtures = ['social.yaml']
+    fixtures = ['social-oso.yaml']
 
     def test_get_all_posts(self):
         """Test that no authorization is applied, and all posts are returned."""
@@ -32,7 +32,7 @@ class Step1(TestCase):
         response = self.client.get(reverse("index"))
         self.assertQuerysetEqual(
             response.context["posts"],
-            [4, 3, 2, 1],
+            [8, 7, 6, 5, 4, 3, 2, 1],
             transform=lambda p: p.id
         )
 
