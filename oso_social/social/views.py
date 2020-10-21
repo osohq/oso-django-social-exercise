@@ -42,6 +42,9 @@ def new_post(request):
         post = form.save(commit=False)
 
         # STEP 3: Restrict post creation by group.
+        if not request.user.in_group(post.group):
+            raise PermissionDenied()
+
         post.created_by = request.user
         post.save()
 
