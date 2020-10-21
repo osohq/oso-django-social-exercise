@@ -32,7 +32,9 @@ def list_group(request, group_id):
     posts = Post.objects.filter(group=group_id).order_by("-created_at")
 
     # Check that user is in the group
-    if not request.user.in_group(group):
+    try:
+        authorize(request, action="list_posts", resource=group)
+    except PermissionDenied:
         posts = []
 
     return render(request, "social/list.html", {"posts": posts, "group": group})
@@ -44,8 +46,7 @@ def new_post(request):
         post = form.save(commit=False)
 
         # STEP 3: Restrict post creation by group.
-        if not request.user.in_group(post.group):
-            raise PermissionDenied()
+        authorize(request, action="create", resource=post)
 
         post.created_by = request.user
         post.save()
