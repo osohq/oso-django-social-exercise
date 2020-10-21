@@ -14,38 +14,19 @@ from .forms import PostForm
 
 
 def list_posts(request):
-    posts = Post.objects.all().order_by("-created_at")
+    posts = Post.objects.all().order_by("-created_at").authorize(request, action='read')
     groups = Group.objects.all()
-
-    # STEP 1: Add check that user is an admin before they can see a post.
-    authorized_posts = []
-    for post in posts:
-        try:
-            authorize(request, action="read", resource=post)
-            authorized_posts.append(post)
-        except PermissionDenied:
-            continue
-
-    posts = authorized_posts
 
     return render(request, "social/list.html", {"posts": posts, "groups": groups})
 
 # STEP 2: Add group list view.
 def list_group(request, group_id):
     group = Group.objects.get(id=group_id)
-    posts = Post.objects.filter(group=group_id).order_by("-created_at")
+    posts = (Post.objects
+             .filter(group=group_id).order_by("-created_at")
+             .authorize(request, action='read'))
 
     # Check that user is in the group
-    authorized_posts = []
-    for post in posts:
-        try:
-            authorize(request, action="read", resource=post)
-            authorized_posts.append(post)
-        except PermissionDenied:
-            continue
-
-    posts = authorized_posts
-
     return render(request, "social/list.html", {"posts": posts, "group": group})
 
 @login_required

@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser, Group
 
+from django_oso.models import AuthorizedModel
+
 class User(AbstractUser):
     @property
     def tag(self):
@@ -13,7 +15,7 @@ class User(AbstractUser):
 
         return self.groups.filter(id=group.id).exists()
 
-class Post(models.Model):
+class Post(AuthorizedModel):
     ACCESS_PUBLIC = 0
     ACCESS_PRIVATE = 1
     ACCESS_LEVEL_CHOICES = [
