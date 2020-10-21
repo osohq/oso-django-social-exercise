@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.backends import BaseBackend
+from django.contrib.auth.backends import ModelBackend
 
 from .models import User, Post
 
@@ -8,7 +8,8 @@ from .models import User, Post
 admin.site.register(User, UserAdmin)
 admin.site.register(Post)
 
-class MyBackend(BaseBackend):
+
+class MyBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None):
         try:
             user = User.objects.get(username=username)
