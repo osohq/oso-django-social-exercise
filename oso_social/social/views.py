@@ -19,10 +19,15 @@ def list_posts(request):
     groups = Group.objects.all()
 
     # STEP 1: Add check that user is an admin before they can see a post.
-    try:
-        authorize(request, action="list", resource="Post")
-    except PermissionDenied:
-        posts = []
+    authorized_posts = []
+    for post in posts:
+        try:
+            authorize(request, action="read", resource=post)
+            authorized_posts.append(post)
+        except PermissionDenied:
+            continue
+
+    posts = authorized_posts
 
     return render(request, "social/list.html", {"posts": posts, "groups": groups})
 
@@ -32,10 +37,15 @@ def list_group(request, group_id):
     posts = Post.objects.filter(group=group_id).order_by("-created_at")
 
     # Check that user is in the group
-    try:
-        authorize(request, action="list_posts", resource=group)
-    except PermissionDenied:
-        posts = []
+    authorized_posts = []
+    for post in posts:
+        try:
+            authorize(request, action="read", resource=post)
+            authorized_posts.append(post)
+        except PermissionDenied:
+            continue
+
+    posts = authorized_posts
 
     return render(request, "social/list.html", {"posts": posts, "group": group})
 
