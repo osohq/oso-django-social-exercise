@@ -100,10 +100,8 @@ In this step, we will allow users to submit posts to a particular group.  A user
 
 *Changes*
 
-- Add a new route to `urls.py`.  This route will use our new view.  It should have the name `list_group` (required for our template to work).  The URL should be `group/<int:group_id>/`.
 - Create a new view to list posts for a particular group.  The view function should be called `list_group`. The captured group argument from the URL above will be passed as a keyword argument to the function (the function argument's name must be `group_id`).
 - In this view, render the list template with Posts filtered to contain only posts for the current group.
-- In the existing `list_posts` view, add the `groups` context variable.  This variable should contain a list of all groups.
 - In our `list_group` function, add logic to return an empty list of posts if the user is not a member of the group.
 
 *Hints*
