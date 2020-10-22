@@ -270,7 +270,7 @@ This rule enables a user to read a post if they are a member of the post's group
 - Use the code above in `list_posts`
 - Call `authorize` for `list_group` in a similar structure.
 - Update our policy as described above.  You will also need to write a new rule for admins to read all posts.
-- Now, add some new rules that allow users to read all public posts that are not in a group and private posts created by the current user.
+- Now, add a new rule that allows a user to read private posts created by the current user.
 
 *Testing*
 
