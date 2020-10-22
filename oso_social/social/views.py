@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
+from django.contrib.auth.models import Group
+
 from .models import Post
 from .forms import PostForm
 
@@ -11,11 +13,12 @@ from .forms import PostForm
 
 
 def list_posts(request):
+    groups = Group.objects.all()
     posts = Post.objects.all().order_by("-created_at")
 
     # STEP 1: Add check that user is an admin before they can see a post.
 
-    return render(request, "social/list.html", {"posts": posts})
+    return render(request, "social/list.html", {"posts": posts, "groups": groups})
 
 @login_required
 def list_group(request, group_id):
