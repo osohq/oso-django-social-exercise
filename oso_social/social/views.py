@@ -17,7 +17,9 @@ def list_posts(request):
 
     return render(request, "social/list.html", {"posts": posts})
 
-# STEP 2: Add group list view.
+@login_required
+def list_group(request, group_id):
+    pass
 
 @login_required
 def new_post(request):
