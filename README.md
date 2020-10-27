@@ -1,4 +1,4 @@
-# oso - PyATL Workshop
+# oso - oso Django Social Exercise
 
 In this workshop, we will add authorization to a Django social web app.  First, we will enforce authorization using Python & Django.  Then, we will incorporate the `django-oso` authorization library.
 
@@ -8,12 +8,12 @@ Let's get setup.  Before we get started, we'll need a version of Python 3 and gi
 
 There are a few steps to get our app up and running before we can work on it:
 
-1. Clone the repo from: [https://github.com/osohq/oso-pyatl-workshop](https://github.com/osohq/oso-pyatl-workshop)
+1. Clone the repo from: [https://github.com/osohq/oso-django-social-exercise](https://github.com/osohq/oso-django-social-exercise)
 
-    `git clone git@github.com:osohq/oso-pyatl-workshop.git`
+    `git clone git@github.com:osohq/oso-django-social-exercise.git`
 
 2. Make sure your current environment is using python 3 (`python —-version`).  Some folks might need to use the `python3` command depending on your system.
-3. Change directory into the cloned project: `cd oso-pyatl-workshop`
+3. Change directory into the cloned project: `cd oso-django-social-exercise`
 4. Create a virtual environment to isolate the dependencies we are about to install: `python -m venv venv`
 5. Activate the virtual environement: `. venv/bin/activate`
 6. Install `pip install -r requirements.txt`
